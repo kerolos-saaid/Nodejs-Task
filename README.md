@@ -12,7 +12,7 @@ A Node.js REST API application built with Express.js, JWT authentication, JOI fo
 
 1. Clone the repository:
    ```
-   git clone <https://github.com/kerolos-saaid/Nodejs-Task>
+   git clone https://github.com/kerolos-saaid/Nodejs-Task
    ```
 
 2. Navigate to the project directory:
