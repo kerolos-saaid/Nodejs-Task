@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import ApiError from "./ApiError";
 import { StatusCodes } from "http-status-codes";
 
-export const createToken = async (obj = {}, signature, expire_time) => {
+export const createToken = (obj = {}, signature, expire_time) => {
   return jwt.sign(obj, signature, { expiresIn: expire_time }, (err, token) => {
     if (err) {
       throw new ApiError(
@@ -14,7 +14,7 @@ export const createToken = async (obj = {}, signature, expire_time) => {
   });
 };
 
-export const decodeToken = async (token, signature) => {
+export const decodeToken = (token, signature) => {
   return jwt.verify(token, signature, (err, decoded) => {
     if (err) {
       throw new ApiError(
