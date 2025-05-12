@@ -31,6 +31,14 @@ export default auth = (role) =>
         );
       }
 
+      // Check if user has the required role
+      if (role !== user.role) {
+        throw new ApiError(
+          "Access denied. You do not have the required permissions.",
+          StatusCodes.FORBIDDEN
+        );
+      }
+
       // Add user to request object
       req.user = user;
       next();
