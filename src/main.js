@@ -1,6 +1,9 @@
 import express from "express";
 import indexRouter from "./index.router.js";
 import { globalErrorHandler } from "./utils/ErrorHandler.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 const port = 3000;
