@@ -11,6 +11,6 @@ export const generateAuthToken = async (obj = {}) => {
   );
 };
 
-export const decodeAuthToken = async (token) => {
+export const decodeAuthToken = (token) => {
   return tokenUtils.decodeToken(token, tokenConfig.AUTH_SIGNATURE);
 };
