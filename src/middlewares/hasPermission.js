@@ -3,6 +3,7 @@ import AsyncHandler from "../utils/AsyncHandler.js";
 
 const hasPermission = (permissions) => {
   return AsyncHandler(async (req, res, next) => {
+    const user = req.user;
     const hasPermission = permissions.some((permission) =>
       user.permissions.includes(permission)
     );
