@@ -1,12 +1,17 @@
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN');
 
+-- CreateEnum
+CREATE TYPE "Permission" AS ENUM ('READ_OWN_POST', 'READ_PUBLIC_POST', 'READ_ANY_POST', 'UPDATE_OWN_POST', 'UPDATE_ANY_POST', 'DELETE_OWN_POST', 'DELETE_ANY_POST', 'CREATE_POST');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "password" TEXT NOT NULL,
+    "role" "Role" NOT NULL DEFAULT 'USER',
+    "permissions" "Permission"[] DEFAULT ARRAY[]::"Permission"[],
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -18,7 +23,7 @@ CREATE TABLE "Post" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
     "content" TEXT NOT NULL,
-    "published" BOOLEAN NOT NULL DEFAULT false,
+    "public" BOOLEAN NOT NULL DEFAULT true,
     "authorId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
