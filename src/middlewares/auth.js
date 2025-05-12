@@ -4,7 +4,7 @@ import AsyncHandler from "../utils/AsyncHandler.js";
 import * as TokenService from "../modules/shared/services/token.service.js";
 import prisma from "../prisma/prisma.js";
 
-export default auth = (role) =>
+const auth = (roles = []) =>
   AsyncHandler(async (req, _, next) => {
     // Get token from header
     const authHeader = req.headers.authorization;
@@ -19,7 +19,7 @@ export default auth = (role) =>
 
     try {
       // Verify and decode token
-      const decoded = await TokenService.decodeAuthToken(token);
+      const decoded = TokenService.decodeAuthToken(token);
 
       // Get user from token
 
@@ -32,7 +32,7 @@ export default auth = (role) =>
       }
 
       // Check if user has the required role
-      if (role !== user.role) {
+      if (roles.length && !roles.includes(user.role)) {
         throw new ApiError(
           "Access denied. You do not have the required permissions.",
           StatusCodes.FORBIDDEN
@@ -50,3 +50,5 @@ export default auth = (role) =>
       );
     }
   });
+
+export default auth;
