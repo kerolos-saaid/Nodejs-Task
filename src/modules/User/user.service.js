@@ -1,6 +1,10 @@
 import prisma from "../../prisma/prisma.js";
+import bcrypt from "bcrypt";
+import envVariables from "../../config/envVariables.js";
+import ROLES_PERMISSIONS from "../Auth/AccessControl/rolesPermissions.js";
+import ROLES from "../Auth/AccessControl/roles.js";
 
-export const createUser = async (userData) => {
+export const createUser = async (userData, role) => {
   const { email, password, name } = userData;
   const user = await prisma.user.create({
     data: {
