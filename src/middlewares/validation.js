@@ -12,6 +12,10 @@ export const generalFields = {
     .required(),
   password: joi.string().min(8).max(30),
   name: joi.string().min(3).max(30),
+  // token validation regex for JWT with Bearer prefix
+  token: joi
+    .string()
+    .regex(/^Bearer [A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_.+/=]*$/),
 };
 
 export const validation = (schema) => {
