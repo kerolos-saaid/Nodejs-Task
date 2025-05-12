@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
-import ApiError from "../utils/ApiError";
+import ApiError from "../utils/ApiError.js";
 import AsyncHandler from "../utils/AsyncHandler.js";
-import * as TokenService from "../modules/shared/services/token.service";
+import * as TokenService from "../modules/shared/services/token.service.js";
 import prisma from "../prisma/prisma.js";
 
 export default auth = (role) =>
