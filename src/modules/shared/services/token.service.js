@@ -1,8 +1,10 @@
-import { tokenConfig } from "../../../config/envVariables";
-import tokenUtils from "../../../utils/Token";
+import envVariables from "../../../config/envVariables.js";
+import * as tokenUtils from "../../../utils/Token.js";
+
+const tokenConfig = envVariables.TokenConfig;
 
 export const generateAuthToken = async (obj = {}) => {
-  return await tokenUtils.createToken(
+  return tokenUtils.createToken(
     obj,
     tokenConfig.AUTH_SIGNATURE,
     tokenConfig.AUTH_EXPIRE_TIME
@@ -10,5 +12,5 @@ export const generateAuthToken = async (obj = {}) => {
 };
 
 export const decodeAuthToken = async (token) => {
-  return await tokenUtils.decodeToken(token, tokenConfig.AUTH_SIGNATURE);
+  return tokenUtils.decodeToken(token, tokenConfig.AUTH_SIGNATURE);
 };
