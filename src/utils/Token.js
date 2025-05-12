@@ -20,10 +20,6 @@ export const decodeToken = (token, signature) => {
   try {
     return jwt.verify(token, signature);
   } catch (error) {
-    throw new ApiError(
-      StatusCodes.UNAUTHORIZED,
-      "Token verification failed",
-      error
-    );
+    throw new ApiError("Token verification failed", StatusCodes.UNAUTHORIZED);
   }
 };
