@@ -1,43 +1,44 @@
-const { StatusCodes } = require("http-status-codes");
-const ApiError = require("../utils/ApiError");
-const User = require("../models/User");
-const AsyncHandler = require("../utils/AsyncHandler.js");
-const TokenService = require("../modules/shared/services/token.service");
+import { StatusCodes } from "http-status-codes";
+import ApiError from "../utils/ApiError";
+import AsyncHandler from "../utils/AsyncHandler.js";
+import * as TokenService from "../modules/shared/services/token.service";
+import prisma from "../prisma/prisma.js";
 
-export default auth = AsyncHandler(async (req, res, next) => {
-  // Get token from header
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    throw new ApiError(
-      "Access denied. No token provided.",
-      StatusCodes.UNAUTHORIZED
-    );
-  }
-
-  const token = authHeader.split(" ")[1];
-
-  try {
-    // Verify and decode token
-    const decoded = await TokenService.decodeAuthToken(token);
-
-    // Get user from token
-
-    const user = await User.findById(decoded.userId);
-    if (!user) {
+export default auth = (role) =>
+  AsyncHandler(async (req, _, next) => {
+    // Get token from header
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
       throw new ApiError(
-        "User associated with this token no longer exists",
-        StatusCodes.NOT_FOUND
+        "Access denied. No token provided.",
+        StatusCodes.UNAUTHORIZED
       );
     }
 
-    // Add user to request object
-    req.user = user;
-    next();
-  } catch (error) {
-    if (error instanceof ApiError) throw error;
-    throw new ApiError(
-      "Invalid or expired authentication token",
-      StatusCodes.UNAUTHORIZED
-    );
-  }
-});
+    const token = authHeader.split(" ")[1];
+
+    try {
+      // Verify and decode token
+      const decoded = await TokenService.decodeAuthToken(token);
+
+      // Get user from token
+
+      const user = await prisma.user.findUnique({ where: { id: decoded.id } });
+      if (!user) {
+        throw new ApiError(
+          "User associated with this token no longer exists",
+          StatusCodes.NOT_FOUND
+        );
+      }
+
+      // Add user to request object
+      req.user = user;
+      next();
+    } catch (error) {
+      if (error instanceof ApiError) throw error;
+      throw new ApiError(
+        "Invalid or expired authentication token",
+        StatusCodes.UNAUTHORIZED
+      );
+    }
+  });
