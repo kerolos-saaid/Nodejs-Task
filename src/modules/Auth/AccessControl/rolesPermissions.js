@@ -1,0 +1,15 @@
+import PERMISSIONS from "./permissions.js";
+import ROLES from "./roles.js";
+
+const ROLES_PERMISSIONS = {
+  [`${ROLES.ADMIN}`]: Object.keys(PERMISSIONS),
+  [`${ROLES.USER}`]: [
+    PERMISSIONS.CREATE_POST,
+    PERMISSIONS.READ_OWN_POST,
+    PERMISSIONS.READ_PUBLIC_POST,
+    PERMISSIONS.UPDATE_OWN_POST,
+    PERMISSIONS.DELETE_OWN_POST,
+  ],
+};
+
+export default ROLES_PERMISSIONS;
