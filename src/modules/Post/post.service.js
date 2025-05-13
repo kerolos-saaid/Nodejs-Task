@@ -15,9 +15,9 @@ export const createPost = async (userId, postData) => {
   return post;
 };
 
-export const deletePost = async (postId) => {
+export const deletePost = async (postId, authorId) => {
   const existingPost = await prisma.post.findUnique({
-    where: { id: postId },
+    where: { id: postId, authorId },
   });
 
   if (!existingPost) {
