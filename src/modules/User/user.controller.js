@@ -5,7 +5,7 @@ import * as userService from "./user.service.js"; // Added import for userServic
 export const grantPermissions = AsyncHandler(async (req, res) => {
   const { userId } = req.params;
   const { permissions } = req.body;
-  const user = await userService.givePermissions(userId, permissions);
+  const user = await userService.grantPermissions(userId, permissions);
   res
     .status(StatusCodes.OK)
     .json({ message: "Permissions granted successfully", user });
