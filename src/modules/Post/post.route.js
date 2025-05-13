@@ -17,11 +17,19 @@ router.post(
 );
 
 router.delete(
-  "/delete/:postId",
+  "/delete_own/:postId",
   validation(postValidation.deletePost),
   auth(),
   hasPermission([PERMISSIONS.DELETE_OWN_POST]),
-  postController.deletePost
+  postController.delete_own
+);
+
+router.delete(
+  "/delete_privileged/:postId",
+  validation(postValidation.deletePost),
+  auth(),
+  hasPermission([PERMISSIONS.DELETE_ANY_POST]),
+  postController.delete_privileged
 );
 
 export default router;
