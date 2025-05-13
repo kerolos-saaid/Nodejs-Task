@@ -1,0 +1,248 @@
+{
+	"info": {
+		"_postman_id": "0a89379c-a028-4247-b8cd-7bd2939ba72a",
+		"name": "Node.js Task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27667807"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Sign Up",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Kerolos Saaid\",\r\n    \"email\":\"user2@gmail.com\",\r\n    \"password\":\"pass1234\",\r\n    \"role\":\"USER\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/signup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user1@gmail.com\",\r\n    \"password\": \"pass1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "Create Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJ1c2VyMUBnbWFpbC5jb20iLCJuYW1lIjoiS2Vyb2xvcyBTYWFpZCIsInJvbGUiOiJVU0VSIiwicGVybWlzc2lvbnMiOlsiQ1JFQVRFX1BPU1QiLCJSRUFEX09XTl9QT1NUIiwiUkVBRF9QVUJMSUNfUE9TVCIsIlVQREFURV9PV05fUE9TVCIsIkRFTEVURV9PV05fUE9TVCJdLCJjcmVhdGVkQXQiOiIyMDI1LTA1LTEzVDAwOjA5OjAwLjI4OFoiLCJ1cGRhdGVkQXQiOiIyMDI1LTA1LTEzVDAwOjA5OjAwLjI4OFoiLCJpYXQiOjE3NDcwOTQ5NDAsImV4cCI6MTc0NzA5ODU0MH0.hOT8OyK06Kd1qC6sTI43ufUM5JGHhRDagaDnUYXZ2Ag",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"random post\",\r\n    \"content\": \"some content\",\r\n    \"public\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/posts/create",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Own Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJ1c2VyMkBnbWFpbC5jb20iLCJuYW1lIjoiS2Vyb2xvcyBTYWFpZCIsInJvbGUiOiJVU0VSIiwicGVybWlzc2lvbnMiOlsiQ1JFQVRFX1BPU1QiLCJSRUFEX09XTl9QT1NUIiwiUkVBRF9QVUJMSUNfUE9TVCIsIlVQREFURV9PV05fUE9TVCIsIkRFTEVURV9PV05fUE9TVCJdLCJjcmVhdGVkQXQiOiIyMDI1LTA1LTEzVDAwOjA5OjEwLjEyNFoiLCJ1cGRhdGVkQXQiOiIyMDI1LTA1LTEzVDAwOjA5OjEwLjEyNFoiLCJpYXQiOjE3NDcwOTQ5NTAsImV4cCI6MTc0NzA5ODU1MH0.zvBDQyCcEbGY2b1TnED56dQswZfeZa9jduO5pPLVJEc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/posts/delete_own/:postId",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts",
+								"delete_own",
+								":postId"
+							],
+							"variable": [
+								{
+									"key": "postId",
+									"value": "24"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Any Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYW1lIjoiS2Vyb2xvcyBTYWFpZCIsInJvbGUiOiJBRE1JTiIsInBlcm1pc3Npb25zIjpbIkNSRUFURV9QT1NUIiwiUkVBRF9PV05fUE9TVCIsIlJFQURfUFVCTElDX1BPU1QiLCJSRUFEX0FOWV9QT1NUIiwiVVBEQVRFX09XTl9QT1NUIiwiVVBEQVRFX0FOWV9QT1NUIiwiREVMRVRFX09XTl9QT1NUIiwiREVMRVRFX0FOWV9QT1NUIl0sImNyZWF0ZWRBdCI6IjIwMjUtMDUtMTNUMDA6MDg6MzAuNjMzWiIsInVwZGF0ZWRBdCI6IjIwMjUtMDUtMTNUMDA6MDg6MzAuNjMzWiIsImlhdCI6MTc0NzA5NDkxMCwiZXhwIjoxNzQ3MDk4NTEwfQ.vVXfP1YJMQ2MC2JowrgS2lxxCJEOfHnO_j2alEaiy3Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/posts/delete_privileged/:postId",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts",
+								"delete_privileged",
+								":postId"
+							],
+							"variable": [
+								{
+									"key": "postId",
+									"value": "23"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Any Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYW1lIjoiS2Vyb2xvcyBTYWFpZCIsInJvbGUiOiJBRE1JTiIsInBlcm1pc3Npb25zIjpbIkNSRUFURV9QT1NUIiwiUkVBRF9PV05fUE9TVCIsIlJFQURfUFVCTElDX1BPU1QiLCJSRUFEX0FOWV9QT1NUIiwiVVBEQVRFX09XTl9QT1NUIiwiVVBEQVRFX0FOWV9QT1NUIiwiREVMRVRFX09XTl9QT1NUIiwiREVMRVRFX0FOWV9QT1NUIl0sImNyZWF0ZWRBdCI6IjIwMjUtMDUtMTNUMDA6MDg6MzAuNjMzWiIsInVwZGF0ZWRBdCI6IjIwMjUtMDUtMTNUMDA6MDg6MzAuNjMzWiIsImlhdCI6MTc0NzA5NDkxMCwiZXhwIjoxNzQ3MDk4NTEwfQ.vVXfP1YJMQ2MC2JowrgS2lxxCJEOfHnO_j2alEaiy3Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/posts/delete_privileged/:postId",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"posts",
+								"delete_privileged",
+								":postId"
+							],
+							"variable": [
+								{
+									"key": "postId",
+									"value": "23"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "localhost:3000",
+			"type": "string"
+		}
+	]
+}
