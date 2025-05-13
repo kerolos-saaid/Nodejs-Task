@@ -19,26 +19,19 @@ export const createPost = AsyncHandler(async (req, res) => {
   });
 });
 
-export const deletePost = AsyncHandler(async (req, res) => {
+export const delete_own = AsyncHandler(async (req, res) => {
   const { postId } = req.params;
-  const post = await postService.getPostById(Number(postId), req.user.id);
 
-  if (!post) {
-    return res.status(StatusCodes.NOT_FOUND).json({
-      message: "Post not found",
-    });
-  }
+  const deletedPost = await postService.deletePost(Number(postId), req.user.id);
 
-  // Check if the user has permission to delete the post
-  const allowDelete =
-    Number(req.user.id) == Number(post.authorId) || // Check if the user is the author of the post
-    req.user.permissions.includes(PERMISSIONS.DELETE_ANY_POST); // Check if the user has the permission to delete any post
+  res.status(StatusCodes.OK).json({
+    message: "Post deleted successfully",
+    data: deletedPost,
+  });
+});
 
-  if (!allowDelete) {
-    return res.status(StatusCodes.FORBIDDEN).json({
-      message: "You do not have permission to delete this post",
-    });
-  }
+export const delete_privileged = AsyncHandler(async (req, res) => {
+  const { postId } = req.params;
 
   const deletedPost = await postService.deletePost(Number(postId));
 
