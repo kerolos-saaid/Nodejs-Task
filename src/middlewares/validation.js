@@ -16,6 +16,15 @@ export const generalFields = {
   token: joi
     .string()
     .regex(/^Bearer [A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_.+/=]*$/),
+  id: joi
+    .number()
+    .required()
+    .custom((value, helpers) => {
+      if (isNaN(value)) {
+        return helpers.error("any.invalid");
+      }
+      return value;
+    }),
 };
 
 export const validation = (schema) => {
