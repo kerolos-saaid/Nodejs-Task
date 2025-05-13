@@ -46,7 +46,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"user1@gmail.com\",\r\n    \"password\": \"pass1234\"\r\n}",
+							"raw": "{\r\n    \"email\": \"koproy11d@gmail.com\",\r\n    \"password\": \"pass1234\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -79,7 +79,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJ1c2VyMUBnbWFpbC5jb20iLCJuYW1lIjoiS2Vyb2xvcyBTYWFpZCIsInJvbGUiOiJVU0VSIiwicGVybWlzc2lvbnMiOlsiQ1JFQVRFX1BPU1QiLCJSRUFEX09XTl9QT1NUIiwiUkVBRF9QVUJMSUNfUE9TVCIsIlVQREFURV9PV05fUE9TVCIsIkRFTEVURV9PV05fUE9TVCJdLCJjcmVhdGVkQXQiOiIyMDI1LTA1LTEzVDAwOjA5OjAwLjI4OFoiLCJ1cGRhdGVkQXQiOiIyMDI1LTA1LTEzVDAwOjA5OjAwLjI4OFoiLCJpYXQiOjE3NDcwOTQ5NDAsImV4cCI6MTc0NzA5ODU0MH0.hOT8OyK06Kd1qC6sTI43ufUM5JGHhRDagaDnUYXZ2Ag",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJrb3Byb3kxMWRAZ21haWwuY29tIiwibmFtZSI6Iktlcm9sb3MgU2FhaWQiLCJyb2xlIjoiVVNFUiIsInBlcm1pc3Npb25zIjpbIlJFQURfT1dOX1BPU1QiLCJSRUFEX1BVQkxJQ19QT1NUIiwiVVBEQVRFX09XTl9QT1NUIiwiREVMRVRFX09XTl9QT1NUIl0sImNyZWF0ZWRBdCI6IjIwMjUtMDUtMTJUMjM6NTg6NTYuMzUzWiIsInVwZGF0ZWRBdCI6IjIwMjUtMDUtMTNUMDg6MDk6NDUuNzIyWiIsImlhdCI6MTc0NzEyMzc5NywiZXhwIjoxNzQ3MTI3Mzk3fQ.LJlRLRMCSczAHKmyHymGYILSuUmb7Ul3X5RXIvo-dkE",
 									"type": "string"
 								}
 							]
@@ -177,36 +177,94 @@
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
 				{
-					"name": "Delete Any Post",
+					"name": "Grant Permissions",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYW1lIjoiS2Vyb2xvcyBTYWFpZCIsInJvbGUiOiJBRE1JTiIsInBlcm1pc3Npb25zIjpbIkNSRUFURV9QT1NUIiwiUkVBRF9PV05fUE9TVCIsIlJFQURfUFVCTElDX1BPU1QiLCJSRUFEX0FOWV9QT1NUIiwiVVBEQVRFX09XTl9QT1NUIiwiVVBEQVRFX0FOWV9QT1NUIiwiREVMRVRFX09XTl9QT1NUIiwiREVMRVRFX0FOWV9QT1NUIl0sImNyZWF0ZWRBdCI6IjIwMjUtMDUtMTNUMDA6MDg6MzAuNjMzWiIsInVwZGF0ZWRBdCI6IjIwMjUtMDUtMTNUMDA6MDg6MzAuNjMzWiIsImlhdCI6MTc0NzA5NDkxMCwiZXhwIjoxNzQ3MDk4NTEwfQ.vVXfP1YJMQ2MC2JowrgS2lxxCJEOfHnO_j2alEaiy3Y",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYW1lIjoiS2Vyb2xvcyBTYWFpZCIsInJvbGUiOiJBRE1JTiIsInBlcm1pc3Npb25zIjpbIkNSRUFURV9QT1NUIiwiUkVBRF9PV05fUE9TVCIsIlJFQURfUFVCTElDX1BPU1QiLCJSRUFEX0FOWV9QT1NUIiwiVVBEQVRFX09XTl9QT1NUIiwiVVBEQVRFX0FOWV9QT1NUIiwiREVMRVRFX09XTl9QT1NUIiwiREVMRVRFX0FOWV9QT1NUIl0sImNyZWF0ZWRBdCI6IjIwMjUtMDUtMTNUMDA6MDg6MzAuNjMzWiIsInVwZGF0ZWRBdCI6IjIwMjUtMDUtMTNUMDA6MDg6MzAuNjMzWiIsImlhdCI6MTc0NzEyMTkxNSwiZXhwIjoxNzQ3MTI1NTE1fQ.vaSBSYY7eb6eBCiVm06tOgK-Hpeor3hiyNMWBx9gilU",
 									"type": "string"
 								}
 							]
 						},
-						"method": "DELETE",
+						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"permissions\": [\r\n        \"CREATE_POST\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{url}}/posts/delete_privileged/:postId",
+							"raw": "{{url}}/users/grant_permissions/:userId",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"posts",
-								"delete_privileged",
-								":postId"
+								"users",
+								"grant_permissions",
+								":userId"
 							],
 							"variable": [
 								{
-									"key": "postId",
-									"value": "23"
+									"key": "userId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Revoke Permissions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYW1lIjoiS2Vyb2xvcyBTYWFpZCIsInJvbGUiOiJBRE1JTiIsInBlcm1pc3Npb25zIjpbIkNSRUFURV9QT1NUIiwiUkVBRF9PV05fUE9TVCIsIlJFQURfUFVCTElDX1BPU1QiLCJSRUFEX0FOWV9QT1NUIiwiVVBEQVRFX09XTl9QT1NUIiwiVVBEQVRFX0FOWV9QT1NUIiwiREVMRVRFX09XTl9QT1NUIiwiREVMRVRFX0FOWV9QT1NUIl0sImNyZWF0ZWRBdCI6IjIwMjUtMDUtMTNUMDA6MDg6MzAuNjMzWiIsInVwZGF0ZWRBdCI6IjIwMjUtMDUtMTNUMDA6MDg6MzAuNjMzWiIsImlhdCI6MTc0NzEyMTkxNSwiZXhwIjoxNzQ3MTI1NTE1fQ.vaSBSYY7eb6eBCiVm06tOgK-Hpeor3hiyNMWBx9gilU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"permissions\": [\r\n        \"CREATE_POST\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/revoke_permissions/:userId",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"revoke_permissions",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "4"
 								}
 							]
 						}
