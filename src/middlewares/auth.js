@@ -51,4 +51,15 @@ const auth = (roles = []) =>
     }
   });
 
+export const socketAuth = AsyncHandler((socket, next) => {
+  try {
+    const decoded = TokenService.decodeAuthToken(socket.handshake.auth.token);
+    socket.user = decoded;
+    next();
+  } catch (error) {
+    const socketError = new Error(error.message);
+    next(socketError);
+  }
+});
+
 export default auth;
