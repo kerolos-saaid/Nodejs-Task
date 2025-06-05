@@ -1,19 +1,25 @@
 import { StatusCodes } from "http-status-codes";
 import AsyncHandler from "../utils/AsyncHandler.js";
+import ApiError from "../utils/ApiError.js";
 
-const hasPermission = (permissions) => {
-  return AsyncHandler(async (req, res, next) => {
-    const user = req.user;
-    const hasPermission = permissions.some((permission) =>
-      user.permissions.includes(permission)
-    );
-    if (!hasPermission) {
-      return res.status(StatusCodes.UNAUTHORIZED).json({
-        message: "You do not have permission to perform this action",
-      });
+export const hasPermission = (user, permissions) => {
+  const hasPermission = permissions.some((permission) =>
+    user.permissions.includes(permission)
+  );
+  return hasPermission;
+};
+
+export const hasPermissionExpress = (permissions) => {
+  return AsyncHandler((req, _, next) => {
+    const hasPermissions = hasPermission(req.user, permissions);
+    if (!hasPermissions) {
+      throw new ApiError(
+        "Access denied. You do not have the required permissions.",
+        StatusCodes.FORBIDDEN
+      );
     }
     next();
   });
 };
 
-export default hasPermission;
+export default hasPermissionExpress;
