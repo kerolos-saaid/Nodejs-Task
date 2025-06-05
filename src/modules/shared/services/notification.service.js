@@ -1,11 +1,12 @@
 import { Server } from "socket.io";
-import { socketAuth } from "../../../middlewares/auth";
-import AsyncHandler from "../../../utils/AsyncHandler";
+import { socketAuth } from "../../../middlewares/auth.js";
+import { hasPermission } from "../../../middlewares/hasPermission.js";
+import PERMESSIONS from "../../Auth/AccessControl/permissions.js";
 
 let io = null;
-const userSockets = new Map();
+export const userSockets = new Map();
 
-const initNotificationService = (app, route, cors) => {
+export const initNotificationService = async (app, route, cors) => {
   io = new Server(app, {
     path: route,
     cors: {
@@ -15,13 +16,11 @@ const initNotificationService = (app, route, cors) => {
       credentials: cors.credentials,
     },
   });
-};
 
-io.on(
-  "connection",
-  socketAuth,
-  AsyncHandler((socket) => {
-    userSockets.set(socket.user.id, socket);
+  io.use(socketAuth());
+  io.on("connection", (socket) => {
+    userSockets.set(socket.user.id, socket.id);
+    console.log(userSockets);
 
     socket.on("disconnect", () => {
       console.log(`User disconnected: ${socket.user.id}`);
@@ -29,14 +28,35 @@ io.on(
     });
 
     socket.on("sendNotification", (data) => {
-      const { recipientId, message } = data;
-      const recipientSocket = userSockets.get(recipientId);
-      if (recipientSocket) {
-        recipientSocket.emit("notification", {
-          senderId: socket.user.id,
-          message,
+      console.log(socket.user.permissions);
+
+      if (!hasPermission(socket.user, [PERMESSIONS.SEND_NOTIFICATION])) {
+        io.to(socket.id).emit("notification", {
+          message: "You do not have permission to send notifications.",
         });
+        return;
       }
+      const { recipientUserId, message } = data;
+
+      if (!recipientUserId || !message) {
+        return socket.emit(
+          "error",
+          "Recipient user ID and message are required."
+        );
+      }
+
+      const recipientSocketId = userSockets.get(recipientUserId);
+      if (!recipientSocketId) {
+        return socket.emit("error", "Recipient user is not connected.");
+      }
+      console.log(
+        `Sending notification from ${socket.user.id} to ${recipientUserId}: ${message}`
+      );
+
+      io.to(recipientSocketId).emit("notification", {
+        sender: socket.user.id,
+        message,
+      });
     });
-  })
-);
+  });
+};
