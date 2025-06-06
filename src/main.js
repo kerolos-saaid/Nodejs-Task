@@ -5,17 +5,21 @@ import indexRouter from "./index.router.js";
 import { globalErrorHandler } from "./utils/ErrorHandler.js";
 import dotenv from "dotenv";
 import { initSocketService } from "./modules/Notification/notification.service.js"; // Added
+import envVariables from "./config/envVariables.js"; // Added
 
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000; // Use environment variable for port
+const port = envVariables.PORT; // Use from envVariables
 
 const server = http.createServer(app); // Added
+const socketCorsOrigins = envVariables.SOCKET_CORS_ORIGIN.split(','); // Added
+
 const io = new Server(server, { // Added
   cors: { // Added basic CORS configuration
-    origin: "*", // Adjust in production
+    origin: socketCorsOrigins.length === 1 && socketCorsOrigins[0] === "*" ? "*" : socketCorsOrigins, // Modified
     methods: ["GET", "POST"]
+    // credentials: true // Add if you need to handle cookies/sessions via Socket.IO
   }
 });
 

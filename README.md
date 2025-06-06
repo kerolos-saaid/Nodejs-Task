@@ -64,6 +64,64 @@ cd src
 
 Remember to navigate back out of the `src` directory (`cd ..`) when you are done running Prisma commands if you need to run project-level commands (like `npm run dev`).
 
+## Notification Service
+
+This service provides real-time notification capabilities using Socket.IO.
+
+**Purpose:**
+To enable instant, event-based communication between the server and connected clients, and to allow administrators to send targeted messages.
+
+**Key Features:**
+*   **Real-time Messaging:** Leverages Socket.IO for bidirectional and low-latency communication.
+*   **Targeted Sending:**
+    *   Send messages to a specific user.
+    *   Send messages to multiple specified users.
+    *   Broadcast messages to all connected users.
+*   **Secure Connections:** Socket.IO connections are secured using JWT-based authentication. Clients must provide a valid token during the handshake.
+*   **Secure Admin Endpoints:** HTTP endpoints are provided for administrators to trigger notifications:
+    *   `POST /notifications/send-to-user`
+    *   `POST /notifications/send-to-multiple-users`
+    *   `POST /notifications/send-to-all`
+    *   These endpoints are secured by JWT authentication and require the `send_notifications` permission.
+*   **Configurable CORS:** Socket.IO Cross-Origin Resource Sharing (CORS) can be configured via the `SOCKET_CORS_ORIGIN` environment variable (comma-separated origins).
+
+**Configuration:**
+*   **Environment Variable:**
+    *   `SOCKET_CORS_ORIGIN`: Set this in your `.env` file to control which origins are allowed for Socket.IO connections (e.g., `http://localhost:3001,https://your-client-app.com`). Defaults to `*`.
+*   **Initialization:** The Socket.IO service and its authentication middleware are initialized in `src/main.js`.
+
+**Client-Side Connection Example:**
+Clients should connect to the Socket.IO server and provide their JWT token via the `auth.token` option in the handshake.
+
+```javascript
+import { io } from 'socket.io-client';
+
+// Replace with your server URL and valid JWT token
+const socket = io('http://localhost:3000', { // Or your production server URL
+  auth: {
+    token: 'your_jwt_token_here' // User's JWT token
+  }
+});
+
+socket.on('connect', () => {
+  console.log('Connected to Socket.IO server!', socket.id);
+});
+
+socket.on('disconnect', () => {
+  console.log('Disconnected from Socket.IO server.');
+});
+
+// Example: Listen for a custom event from the server
+socket.on('new_notification', (data) => {
+  console.log('Received notification:', data);
+  // Handle the notification (e.g., display it to the user)
+});
+
+// Note: The server primarily uses the authenticated user ID from the token
+// to associate the socket with a user. The 'storeUserId' event is a secondary
+// mechanism and might be deprecated or used for specific edge cases.
+```
+
 ## Running the Application
 
 ## Attribute-Based Access Control (ABAC)
