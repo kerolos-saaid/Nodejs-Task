@@ -2,3 +2,4 @@ node_modules
 package-lock.json
 .env
 src/prisma/generated
+src/config/nodejs-task-d6736-firebase-adminsdk-fbsvc-6305cf1461.json
