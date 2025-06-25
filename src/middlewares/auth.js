@@ -3,7 +3,6 @@ import ApiError from "../utils/ApiError.js";
 import AsyncHandler from "../utils/AsyncHandler.js";
 import * as TokenService from "../modules/shared/services/token.service.js";
 import prisma from "../prisma/prisma.js";
-import { userSockets } from "../modules/shared/services/notification.service.js";
 
 const authenticateUser = async (token, roles = []) => {
   if (!token || !token.startsWith("Bearer ")) {
