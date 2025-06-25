@@ -33,7 +33,7 @@ export const sendPushNotification = {
     .required()
     .keys({
       recipientUserIds: joi.array().items(joi.string()).required(),
-      message: generalFields.message.required(),
+      message: joi.string().required(),
     }),
   headers: joi
     .object({
