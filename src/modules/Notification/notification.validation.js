@@ -6,7 +6,10 @@ export const sendNotification = {
     .object()
     .required()
     .keys({
-      recipientUserIds: joi.array().items(joi.string().required()).required(),
+      recipientUserIds: joi
+        .array()
+        .items(generalFields.id.required())
+        .required(),
       message: joi.string().required(),
     }),
   headers: joi
