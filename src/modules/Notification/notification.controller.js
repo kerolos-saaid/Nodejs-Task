@@ -1,5 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import * as NotificationService from "./notification.service.js";
+import * as PushNotificationService from "../shared/services/pushNotification.service.js";
 import { asyncHandler } from "../../utils/ErrorHandler.js";
 
 export const sendNotification = asyncHandler(async (req, res, next) => {
@@ -24,7 +25,14 @@ export const registerPushToken = asyncHandler(async (req, res, next) => {
 
 export const sendPushNotification = asyncHandler(async (req, res, next) => {
   const { recipientUserIds, message } = req.body;
-  await NotificationService.sendNotification(recipientUserIds, message);
+
+  const pushTokens = await PushNotificationService.sendPushNotification(
+    recipientUserIds
+  );
+
+  for (const token of pushTokens) {
+    PushNotificationService.sendPushNotification(token, message);
+  }
 
   return res
     .status(StatusCodes.OK)
