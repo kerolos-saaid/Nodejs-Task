@@ -10,14 +10,14 @@ const router = Router();
 router.put(
   "/grant_permissions/:userId",
   validation(userValidation.updateUserPermissionsSchema),
-  auth(ROLES.ADMIN),
+  auth([ROLES.ADMIN]),
   userController.grantPermissions
 );
 
 router.put(
   "/revoke_permissions/:userId",
   validation(userValidation.updateUserPermissionsSchema),
-  auth(ROLES.ADMIN),
+  auth([ROLES.ADMIN]),
   userController.revokedPermissions
 );
 
