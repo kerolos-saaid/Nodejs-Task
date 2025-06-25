@@ -22,6 +22,7 @@ model User {
   role        Role         @default(USER)
   permissions Permission[] @default([])
   posts       Post[]
+  pushTokens  PushToken[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
 }
@@ -52,4 +53,13 @@ enum Permission {
   DELETE_ANY_POST
   CREATE_POST
   SEND_NOTIFICATION
+}
+
+model PushToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
